@@ -33,6 +33,6 @@ if __name__ == '__main__':
         ding = Ding(webhook)
         condition = Condition()
         stock_deal = condition.stock_deal()
-        if stock_deal == 0:
+        if stock_deal == 1:
             message = send_waring(message)
             ding.send(message)
