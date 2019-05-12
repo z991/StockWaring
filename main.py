@@ -5,15 +5,13 @@ from stock import Stock
 from condition import Condition
 
 
-def send_waring(stock_name):
+def send_waring(stock_message):
     """
     发送报警信息
     :param config文件中股票的配置名称:
     :return:
     """
-    config = ConfigStock()
-    message = config.config_message(stock_name)
-    hight, low, stock_num = message
+    hight, low, stock_num = stock_message
     stock = Stock(stock_num)
     current_stock, current_price = stock.get_current()
 
@@ -26,10 +24,15 @@ def send_waring(stock_name):
     return message
 
 if __name__ == '__main__':
-    ding = Ding()
+
+    config = ConfigStock()
     while True:
+
+        message = config.config_message('stock')
+        webhook = config.dingding_config('dingding')
+        ding = Ding(webhook)
         condition = Condition()
         stock_deal = condition.stock_deal()
-        if stock_deal == 1:
-            message = send_waring('stock')
+        if stock_deal == 0:
+            message = send_waring(message)
             ding.send(message)

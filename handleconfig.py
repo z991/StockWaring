@@ -11,6 +11,10 @@ class ConfigStock:
         self.conf_main = configparser.ConfigParser()
         self.conf = self.conf_main.read("config.ini")
 
+    def dingding_config(self, dingding):
+        webhook = self.conf_main.get(dingding, 'webhook')
+        return webhook
+
     def config_message(self, stock):
         hight = self.conf_main.get(stock, 'high')
         low = self.conf_main.get(stock, 'low')
