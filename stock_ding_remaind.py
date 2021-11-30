@@ -9,12 +9,13 @@ conf = configparser.ConfigParser()
 
 class Ding:
 
-    def __init__(self):
-        self.webhook = 'https://oapi.dingtalk.com/robot/send?access_token=6e2ce71ae16374dd4edbdf6d1b12a605599e34da3e1ce92c98199def3eadcea2'
+    def __init__(self, webhook):
+        self.webhook = webhook
 
     def send(self, message):
         xiaoding = DingtalkChatbot(self.webhook)
-        xiaoding.send_text(msg=message, is_at_all=True)
+        res = xiaoding.send_text(msg=message, is_at_all=True)
+        print("res====", res)
 
 
 class Stock:
@@ -46,6 +47,7 @@ class Warning:
         self.hight = conf.get('stock', 'high')
         self.low = conf.get('stock', 'low')
         self.stock_num = conf.get('stock', 'stock_num')
+        self.webhook=conf.get('dingding', 'webhook')
 
     def condion(self):
         """
@@ -72,7 +74,7 @@ class Warning:
         """
         stock = Stock(self.stock_num)
         current_stock, current_price = stock.get_current()
-        ding = Ding()
+        ding = Ding(self.webhook)
 
         if '股票代码错误' in current_stock:
             ding.send(message='股票 {} ,请输入正确股票代码！'.format(current_stock))
@@ -87,7 +89,7 @@ class Warning:
 if __name__ == '__main__':
     while True:
         waring = Warning()
-        if waring.condion() == 1:
+        if waring.condion() == 0:
             time.sleep(2)
             waring.sen_waring()
         else:
