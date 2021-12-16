@@ -1,4 +1,5 @@
 import configparser
+import json
 
 
 class ConfigStock:
@@ -11,12 +12,19 @@ class ConfigStock:
         self.conf_main = configparser.ConfigParser()
         self.conf = self.conf_main.read("config.ini")
 
-    def dingding_config(self, dingding):
-        webhook = self.conf_main.get(dingding, 'webhook')
-        return webhook
+    def get_stock_json(self):
+        """
+        获取要监控的股票信息
+        :return:
+        """
+        stock_json = self.conf_main.get('stock_config', 'stock_list')
+        return json.loads(stock_json)
 
-    def config_message(self, stock):
-        hight = self.conf_main.get(stock, 'high')
-        low = self.conf_main.get(stock, 'low')
-        stock_num = self.conf_main.get(stock, 'stock_num')
-        return hight, low, stock_num
+    def manual_control(self):
+        """
+        判断是否开始监控或者停止监控
+        :return:
+        """
+        task_status = self.conf_main.get('stock_config', 'task_status')
+        return task_status
+

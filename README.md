@@ -10,11 +10,10 @@
 
 ```
 项目入口文件是main.py文件。
-condition.py是股票交易日判断模块
+trading.py是股票交易日判断模块
 dingding.py钉钉机器人发送信息模块，可以更改其webhook配置。
 stock.py是获取某只股票的实时信息模块
 handleconfig.py读取config.ini配置文件信息模块
-stock_ding_remaind.py是我原先写的，把所有功能都写在了一个文件里，没有对模块进行拆分，现暂时保留。
 ```
 
 #### 3.项目运行

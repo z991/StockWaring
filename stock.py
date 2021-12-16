@@ -19,4 +19,5 @@ class Stock:
         except Exception as e:
             current_price = '0'
             current_stock = '股票代码错误' + str(e)
+        current_price = float(current_price)
         return current_stock, current_price
