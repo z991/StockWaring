@@ -6,8 +6,6 @@ class ConfigStock:
     """
     获取股票配置信息
     """
-    conf = configparser.ConfigParser()
-
     def __init__(self):
         self.conf_main = configparser.ConfigParser()
         self.conf = self.conf_main.read("config.ini")

@@ -13,7 +13,9 @@ class Trading:
         min = now.minute
         week = now.weekday()
 
+        # 是否运行代码
         result = 1
+        # 优先从配置文件中获取，是否为交易日
         is_start = config.manual_control()
 
         if is_start == "ON":
